@@ -196,6 +196,7 @@ audio {
     height: auto;
     border: solid 0.125rem;
     box-sizing: border-box;
+
 }
 
 .page-header, .page-footer {
@@ -233,26 +234,36 @@ audio {
 
 button {
     display: flex;
-    font-size: 1rem;
+    font-size: 1.16rem;
 }
 
 
 #map {
-    height: 380px;
+    display: flex;
+    width: 49%;
     border: solid 0.125rem;
+    box-sizing: border-box;
 }
 
+.boxes {
+    width: 51%;
+}
 
+.box-left, .box-right {
+        border: solid 0.125rem;
+}
 
-
+#map, .box-left, .box-right {
+    background-color: #F8F8F8;
+}
 
 #event {
     padding: 0;
     margin: 0;
 }
 
-#train img {
-    width: 33%;
+#responsible img {
+    width: 6rem;
     height: auto;
 }
 
@@ -263,6 +274,55 @@ button {
     height: auto;
 }
 
+.help_menu {
+    border-radius: 2rem;
+    max-width: 80%;
+}
+
+/*      dialog     */
+
+dialog[closed] {
+    position: fixed;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    display: block;
+}
+
+dialog[open] {
+    opacity: 1;
+}
+
+dialog::backdrop {
+    background: rgb(0 0 0 / 0.8);
+}
+
+dialog span {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    font-size: 2rem;
+    text-decoration: none;
+    color: darkred;
+}
+
+
+#close-story, #close-manual {
+    display: block;
+    margin: auto;
+    padding: 10px 20px;
+}
+
 /* Media query*/
 
+@media screen and (max-width: 768px) {
 
+    #map {
+        height: 510px;
+        width: 100%;
+    }
+    .boxes {
+        justify-content: center;
+        width: 100%;
+    }
+
+}
