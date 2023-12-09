@@ -63,50 +63,59 @@ function onMapClick(e) {
 
 map.on('click', onMapClick);
 
-/*   Restart   */
+var url= 'http://127.0.0.1:3000';
+var playerName;
+var gameId;
 
-function pageLoad() {
-    const modal = document.querySelector('#player-modal')
-    modal.showModal()
+// fetch function
 
-    const closeModal = document.querySelector('#level_submit')
-    closeModal.addEventListener('click', () => {
-        modal.close()
-    })
-}
+async function fetchData(address) {
+    const response = await fetch(address);
+    const data = await response.json();
 
-window.onload = pageLoad;
+    return data;
+};
 
-const restart = document.querySelector('#restart')
-restart.addEventListener('click', () => {
-    location.reload()
+// Setting up
+
+ document.getElementById('player-form').addEventListener('submit', async function (evt) {
+        evt.preventDefault();
+
+        playerName = document.getElementById('player-input').value;
+        const difficulty = document.querySelector('[name=difficulty]').value;
+
+        const address = `${url}/${playerName}/${difficulty}`;
+        const data = await fetchData(address)
+        gameId = data.GameID;
+
+        document.getElementById('changeName').innerText = playerName;
+        document.getElementById('disappear').innerHTML = '';
+        });
+
+
+
+// buttons
+
+document.getElementById('restart').addEventListener('click', function () {
+    location.reload();
 });
 
-
-
-/*  help menu  */
-
-const story = document.querySelector('#story')
-const manual = document.querySelector('#manual')
-const dialog = document.querySelectorAll('.help_menu')
-const closeStory = document.querySelector('#close_story')
-const closeLeManuelle = document.querySelector('#close_manual')
-
-story.addEventListener('click', () => {
-    console.log(dialog[0])
-    dialog[0].showModal();
+document.getElementById('story').addEventListener('click', function () {
+    const story = document.getElementById('story-menu');
+    story.showModal();
 });
 
-manual.addEventListener('click', () => {
-    dialog[1].showModal();
+document.getElementById('close-story').addEventListener('click', function () {
+    const story = document.getElementById('story-menu');
+    story.close();
 });
 
-closeStory.addEventListener('click', () => {
-    console.log('click')
-    dialog[0].close();
+document.getElementById('manual').addEventListener('click', function () {
+    const help = document.getElementById('manual-menu');
+    help.showModal();
 });
 
-closeLeManuelle.addEventListener('click', () => {
-    console.log('click')
-    dialog[1].close();
+document.getElementById('close-manual').addEventListener('click', function () {
+    const help = document.getElementById('manual-menu');
+    help.close();
 });
